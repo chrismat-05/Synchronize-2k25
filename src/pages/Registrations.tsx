@@ -65,13 +65,13 @@ const Registrations = () => {
   const minRegistrations = Math.min(...Object.values(data));
 
   return (
-    <div className="min-h-screen p-6">
+    <div className="min-h-screen px-2 sm:px-4 py-6">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex flex-col lg:flex-row lg:items-center justify-between mb-8 gap-4"
+          className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4"
         >
           <div className="flex items-center space-x-4">
             <Link 
@@ -99,7 +99,7 @@ const Registrations = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8"
         >
           <div className="bg-gradient-card border border-border rounded-lg p-4 text-center">
             <div className="text-2xl font-bold text-primary">{totalRegistrations}</div>
@@ -120,7 +120,7 @@ const Registrations = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
         >
           {Object.entries(data).map(([eventName, count], index) => (
             <RegistrationCard

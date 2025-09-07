@@ -42,15 +42,15 @@ const Faction = () => {
   }
 
   return (
-    <div className="min-h-screen p-6 flex flex-col">
+    <div className="min-h-screen px-2 sm:px-4 py-6 flex flex-col">
       <div className="max-w-6xl mx-auto flex-1 w-full">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex flex-col lg:flex-row lg:items-center justify-between mb-8 gap-4"
+          className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4"
         >
-          <h1 className="text-3xl font-bold text-foreground">Faction Registration Counts</h1>
-          <div className="text-sm text-muted-foreground">
+          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Faction Registration Counts</h1>
+          <div className="text-xs sm:text-sm text-muted-foreground">
             Last updated: {new Date(data._last_updated).toLocaleTimeString()}
           </div>
         </motion.div>
@@ -60,7 +60,7 @@ const Faction = () => {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8"
+          className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 gap-4 mb-8"
         >
           {/* Total Registrations */}
           <div className="bg-gradient-card border border-border rounded-lg shadow-card p-6 flex items-center space-x-4">
@@ -98,7 +98,7 @@ const Faction = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8"
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8"
         >
           {Object.entries(data.overall).map(([faction, count], i) => (
             <FactionCard
