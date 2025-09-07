@@ -24,17 +24,14 @@ const RegistrationCard = ({ eventName, count, imageUrl, delay = 0 }: Registratio
         />
       </div>
   <div className="p-4 sm:p-6">
-  <div className="flex flex-col xs:flex-row xs:items-center justify-between mb-2 sm:mb-4 gap-2 xs:gap-0">
-          <h3 className="text-base sm:text-lg font-semibold text-foreground">{eventName}</h3>
-          <div className="p-2 bg-secondary rounded-md hidden sm:block">
-            <Users className="h-4 w-4 text-secondary-foreground" />
-          </div>
-        </div>
-        <div className="text-center">
-          <p className="text-xs sm:text-sm text-muted-foreground mb-1 sm:mb-2">Registrations</p>
-          <p className="text-2xl sm:text-3xl font-bold text-primary">{count}</p>
-        </div>
-      </div>
+    <div className="mb-2 sm:mb-4">
+      <h3 className="text-base sm:text-lg font-semibold text-foreground">{eventName}</h3>
+    </div>
+    <div className="text-center">
+      <p className="text-xs sm:text-sm text-muted-foreground mb-1 sm:mb-2">Registrations</p>
+      <p className="text-2xl sm:text-3xl font-bold text-primary">{count}</p>
+    </div>
+  </div>
     </motion.div>
   );
 };
