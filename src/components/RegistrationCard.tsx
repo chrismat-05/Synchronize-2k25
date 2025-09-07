@@ -26,7 +26,7 @@ const RegistrationCard = ({ eventName, count, imageUrl, delay = 0 }: Registratio
   <div className="p-4 sm:p-6">
   <div className="flex flex-col xs:flex-row xs:items-center justify-between mb-2 sm:mb-4 gap-2 xs:gap-0">
           <h3 className="text-base sm:text-lg font-semibold text-foreground">{eventName}</h3>
-          <div className="p-2 bg-secondary rounded-md">
+          <div className="p-2 bg-secondary rounded-md hidden sm:block">
             <Users className="h-4 w-4 text-secondary-foreground" />
           </div>
         </div>
