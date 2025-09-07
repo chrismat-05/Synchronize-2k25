@@ -16,10 +16,10 @@ import chronoscapeLogo from "@/assets/Chronoscape.png";
 
 const eventInfo = [
   { name: "IT Manager", logo: itManagerLogo },
-  { name: "Code Sustain", logo: codesustainLogo },
+  { name: "CodeSustain", logo: codesustainLogo },
   { name: "Web Weavers", logo: webweaversLogo },
   { name: "Anime Quest", logo: animequestLogo },
-  { name: "Tech Jar", logo: techjarLogo },
+  { name: "TechJar", logo: techjarLogo },
   { name: "Illustra", logo: illustraLogo },
   { name: "Sensorize", logo: sensorizeLogo },
   { name: "Chronoscape", logo: chronoscapeLogo },
@@ -39,15 +39,6 @@ const Registrations = () => {
     refetchIntervalInBackground: true,
     staleTime: 0,
   });
-
-
-  // Debug: log the data object to check keys
-  React.useEffect(() => {
-    if (data) {
-      // eslint-disable-next-line no-console
-      console.log("Registration API data:", data);
-    }
-  }, [data]);
 
   const totalRegistrations = data ? Object.values(data).reduce((a, b) => a + b, 0) : 0;
   const totalEvents = data ? Object.keys(data).length : 0;
