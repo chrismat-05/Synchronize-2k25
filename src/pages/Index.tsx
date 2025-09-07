@@ -3,19 +3,19 @@ import { Link } from 'react-router-dom';
 import { BarChart3, Users } from 'lucide-react';
 import EventCard from '@/components/EventCard';
 
-// Import event logos
-import itManagerLogo from '@/assets/it-manager-logo.jpg';
-import codesustainLogo from '@/assets/codesustain-logo.jpg';
-import webweaversLogo from '@/assets/webweavers-logo.jpg';
-import animequestLogo from '@/assets/animequest-logo.jpg';
-import techjarLogo from '@/assets/techjar-logo.jpg';
-import illustraLogo from '@/assets/illustra-logo.jpg';
-import sensorizeLogo from '@/assets/sensorize-logo.jpg';
-import chronoscapeLogo from '@/assets/chronoscape-logo.jpg';
+import logo from '@/assets/Logo.png';
+import itManagerLogo from '@/assets/IT Manager.png';
+import codesustainLogo from '@/assets/Code Sustain.png';
+import webweaversLogo from '@/assets/WebWeavers.png';
+import animequestLogo from '@/assets/Anime Quest.png';
+import techjarLogo from '@/assets/TechJar.png';
+import illustraLogo from '@/assets/Illustra.png';
+import sensorizeLogo from '@/assets/Sensorize.png';
+import chronoscapeLogo from '@/assets/Chronoscape.png';
 
 const brochureEvent = {
   title: 'Synchronize 2025 Brochure',
-  logo: itManagerLogo,
+  logo: logo,
   buttonText: 'View Brochure',
   link: 'https://drive.google.com/file/d/1qLX3WGzKlkjLhhvVgMm94Zpc0XcGnmSx/view?usp=sharing'
 };
@@ -84,27 +84,7 @@ const Index = () => {
           <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
             Synchronize 2025
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-            Register for events and track participation
-          </p>
-          
-          {/* Navigation Links */}
-          <div className="flex flex-wrap justify-center gap-4 mb-12">
-            <Link
-              to="/faction"
-              className="inline-flex items-center space-x-2 px-6 py-3 bg-secondary text-secondary-foreground font-medium rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
-            >
-              <BarChart3 className="h-4 w-4" />
-              <span>Faction Analytics</span>
-            </Link>
-            <Link
-              to="/registrations"
-              className="inline-flex items-center space-x-2 px-6 py-3 bg-secondary text-secondary-foreground font-medium rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
-            >
-              <Users className="h-4 w-4" />
-              <span>Registration Dashboard</span>
-            </Link>
-          </div>
+        
         </motion.div>
 
         {/* Brochure - First Line */}

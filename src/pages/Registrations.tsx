@@ -5,14 +5,14 @@ import { useState, useEffect } from 'react';
 import RegistrationCard from '@/components/RegistrationCard';
 
 // Import event logos
-import itManagerLogo from '@/assets/it-manager-logo.jpg';
-import codesustainLogo from '@/assets/codesustain-logo.jpg';
-import webweaversLogo from '@/assets/webweavers-logo.jpg';
-import animequestLogo from '@/assets/animequest-logo.jpg';
-import techjarLogo from '@/assets/techjar-logo.jpg';
-import illustraLogo from '@/assets/illustra-logo.jpg';
-import sensorizeLogo from '@/assets/sensorize-logo.jpg';
-import chronoscapeLogo from '@/assets/chronoscape-logo.jpg';
+import itManagerLogo from '@/assets/IT Manager.png';
+import codesustainLogo from '@/assets/Code Sustain.png';
+import webweaversLogo from '@/assets/WebWeavers.png';
+import animequestLogo from '@/assets/Anime Quest.png';
+import techjarLogo from '@/assets/TechJar.png';
+import illustraLogo from '@/assets/Illustra.png';
+import sensorizeLogo from '@/assets/Sensorize.png';
+import chronoscapeLogo from '@/assets/Chronoscape.png';
 
 // Hardcoded sample data
 const sampleRegistrationData = {
