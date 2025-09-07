@@ -39,6 +39,12 @@ const Faction = () => {
   const totalRegistrations = Object.values(data.overall).reduce((sum, count) => sum + count, 0);
   const totalFactions = Object.keys(data.overall).length;
 
+
+  function getDisplayFactionName(name: string) {
+    if (name === "AnimeQuiz") return "AnimeQuest";
+    return name;
+  }
+
   let topFaction = "-";
   let topCount = 0;
   for (const [faction, count] of Object.entries(data.overall)) {
@@ -102,7 +108,7 @@ const Faction = () => {
               <Sparkles className="h-6 w-6 text-primary" />
             </div>
             <div>
-              <div className="text-2xl font-bold text-foreground">{topFaction}</div>
+              <div className="text-2xl font-bold text-foreground">{getDisplayFactionName(topFaction)}</div>
               <div className="text-sm text-muted-foreground">Most Registrations<br /><span className='text-xs'>({topCount} registrations)</span></div>
             </div>
           </div>
@@ -118,7 +124,7 @@ const Faction = () => {
           {Object.entries(data.overall).map(([faction, count], i) => (
             <FactionCard
               key={faction}
-              name={faction}
+              name={getDisplayFactionName(faction)}
               totalCount={count}
               perEventData={data.perFaction[faction]}
               delay={i * 0.1}

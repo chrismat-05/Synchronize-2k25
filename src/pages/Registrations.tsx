@@ -14,16 +14,22 @@ import illustraLogo from "@/assets/Illustra.png";
 import sensorizeLogo from "@/assets/Sensorize.png";
 import chronoscapeLogo from "@/assets/Chronoscape.png";
 
+
 const eventInfo = [
   { name: "IT Manager", logo: itManagerLogo },
   { name: "CodeSustain", logo: codesustainLogo },
   { name: "Web Weavers", logo: webweaversLogo },
-  { name: "Anime Quiz", logo: animequestLogo },
+  { name: "AnimeQuest", logo: animequestLogo },
   { name: "TechJar", logo: techjarLogo },
   { name: "Illustra", logo: illustraLogo },
   { name: "Sensorize", logo: sensorizeLogo },
   { name: "Chronoscape", logo: chronoscapeLogo },
 ];
+
+function getDisplayEventName(name: string) {
+  if (name === "AnimeQuiz") return "AnimeQuest";
+  return name;
+}
 
 function formatLastUpdated(dateStr?: string) {
   if (!dateStr) return "-";
@@ -39,6 +45,7 @@ const Registrations = () => {
     refetchIntervalInBackground: true,
     staleTime: 0,
   });
+
 
   const totalRegistrations = data ? Object.values(data).reduce((a, b) => a + b, 0) : 0;
   const totalEvents = data ? Object.keys(data).length : 0;
@@ -99,28 +106,36 @@ const Registrations = () => {
             <span className="text-destructive">Failed to load data.</span>
           </div>
         ) : (
-          <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {eventInfo.map((event, idx) => (
-              <RegistrationCard
-                key={event.name}
-                eventName={event.name}
-                count={data[event.name] || 0}
-                imageUrl={event.logo}
-                delay={idx * 0.07}
-              />
-            ))}
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"
+          >
+            {Object.entries(data).map(([eventKey, count], i) => {
+              const info = eventInfo.find(e => e.name.toLowerCase().replace(/\s/g,"") === getDisplayEventName(eventKey).toLowerCase().replace(/\s/g, ""));
+              return (
+                <RegistrationCard
+                  key={eventKey}
+                  eventName={getDisplayEventName(eventKey)}
+                  count={count}
+                  imageUrl={info ? info.logo : ""}
+                  delay={i * 0.1}
+                />
+              );
+            })}
+          </motion.div>
         )}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.5 }}
-        className="mt-12 flex justify-center"
-      >
-        <div className="inline-block bg-muted/60 border border-border rounded-lg px-4 py-2 text-xs text-muted-foreground shadow-sm">
-          Auto-refreshes every 30 seconds
-        </div>
-      </motion.div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="mt-12 flex justify-center"
+        >
+          <div className="inline-block bg-muted/60 border border-border rounded-lg px-4 py-2 text-xs text-muted-foreground shadow-sm">
+            Auto-refreshes every 30 seconds
+          </div>
+        </motion.div>
       </div>
     </div>
   );
