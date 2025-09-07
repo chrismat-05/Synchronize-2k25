@@ -40,6 +40,15 @@ const Registrations = () => {
     staleTime: 0,
   });
 
+
+  // Debug: log the data object to check keys
+  React.useEffect(() => {
+    if (data) {
+      // eslint-disable-next-line no-console
+      console.log("Registration API data:", data);
+    }
+  }, [data]);
+
   const totalRegistrations = data ? Object.values(data).reduce((a, b) => a + b, 0) : 0;
   const totalEvents = data ? Object.keys(data).length : 0;
   const averageRegistrations = totalEvents ? Math.round(totalRegistrations / totalEvents) : 0;
