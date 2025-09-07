@@ -1,17 +1,24 @@
+
 import { useQuery } from "@tanstack/react-query";
 import { fetchFactionData } from "@/lib/api";
 import FactionCard from "@/components/FactionCard";
 import { motion } from "framer-motion";
-import { RefreshCw, Users, Layers, Sparkles } from "lucide-react";
+import { RefreshCw, Users, Layers, Sparkles, Clock } from "lucide-react";
 
 const Faction = () => {
-  const { data, isLoading, isError, refetch } = useQuery({
+  const { data, isLoading, isError, refetch, isFetching } = useQuery({
     queryKey: ["factionData"],
     queryFn: fetchFactionData,
     refetchInterval: 30000,
     refetchIntervalInBackground: true,
     staleTime: 0,
   });
+
+  function formatLastUpdated(dateStr?: string) {
+    if (!dateStr) return "-";
+    const d = new Date(dateStr);
+    return d.toLocaleString();
+  }
 
   if (isLoading) {
     return (
@@ -24,7 +31,7 @@ const Faction = () => {
   if (isError || !data) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <span className="text-destructive">Failed to load data. <button onClick={() => refetch()} className="underline">Retry</button></span>
+        <span className="text-destructive">Failed to load data. </span>
       </div>
     );
   }
@@ -44,16 +51,23 @@ const Faction = () => {
   return (
     <div className="min-h-screen px-2 sm:px-4 py-6 flex flex-col">
       <div className="max-w-6xl mx-auto flex-1 w-full">
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4"
-        >
-          <h1 className="text-2xl sm:text-3xl font-bold text-foreground">Faction Registration Counts</h1>
-          <div className="text-xs sm:text-sm text-muted-foreground">
-            Last updated: {new Date(data._last_updated).toLocaleTimeString()}
+        <div className="flex items-center gap-2 mb-6">
+          <h1 className="text-2xl font-bold tracking-tight flex-1">Factions</h1>
+          <div className="flex items-center gap-2 ml-auto">
+            <div className="flex items-center gap-1 text-xs text-muted-foreground">
+              <Clock className="h-4 w-4" />
+              <span>{formatLastUpdated(data._last_updated)}</span>
+            </div>
+            <button
+              className="p-2 rounded-md hover:bg-muted transition-colors"
+              onClick={() => refetch()}
+              aria-label="Refresh"
+              disabled={isFetching}
+            >
+              <RefreshCw className={`h-5 w-5 ${isFetching ? "animate-spin" : ""}`} />
+            </button>
           </div>
-        </motion.div>
+        </div>
 
         {/* Stats Cards Row */}
         <motion.div
@@ -94,6 +108,7 @@ const Faction = () => {
           </div>
         </motion.div>
 
+        {/* Faction Cards */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -115,11 +130,10 @@ const Faction = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5 }}
-        className="mt-12 text-center"
+        className="mt-12 flex justify-center"
       >
-        <div className="inline-flex items-center space-x-2 px-4 py-2 bg-muted/50 rounded-full text-sm text-muted-foreground">
-          <RefreshCw className="h-3 w-3" />
-          <span>Data refreshes automatically every 30 seconds</span>
+        <div className="inline-block bg-muted/60 border border-border rounded-lg px-4 py-2 text-xs text-muted-foreground shadow-sm">
+          Auto-refreshes every 30 seconds
         </div>
       </motion.div>
     </div>
