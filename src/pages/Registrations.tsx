@@ -18,7 +18,7 @@ const eventInfo = [
   { name: "IT Manager", logo: itManagerLogo },
   { name: "CodeSustain", logo: codesustainLogo },
   { name: "Web Weavers", logo: webweaversLogo },
-  { name: "Anime Quest", logo: animequestLogo },
+  { name: "Anime Quiz", logo: animequestLogo },
   { name: "TechJar", logo: techjarLogo },
   { name: "Illustra", logo: illustraLogo },
   { name: "Sensorize", logo: sensorizeLogo },
@@ -51,18 +51,20 @@ const Registrations = () => {
           <Link to="/">
             <ArrowLeft className="h-5 w-5 text-muted-foreground" />
           </Link>
-          <h1 className="text-2xl font-bold tracking-tight">Event Registrations</h1>
-          <button
-            className="ml-auto p-2 rounded-md hover:bg-muted transition-colors"
-            onClick={() => refetch()}
-            aria-label="Refresh"
-            disabled={isFetching}
-          >
-            <RefreshCw className={`h-5 w-5 ${isFetching ? "animate-spin" : ""}`} />
-          </button>
-          <div className="flex items-center gap-1 text-xs text-muted-foreground">
-            <Clock className="h-4 w-4" />
-            <span>Last updated: {formatLastUpdated((data as any)?._last_updated)}</span>
+          <h1 className="text-2xl font-bold tracking-tight flex-1">Event Registrations</h1>
+          <div className="flex items-center gap-2 ml-auto">
+            <div className="flex items-center gap-1 text-xs text-muted-foreground">
+              <Clock className="h-4 w-4" />
+              <span>{formatLastUpdated((data as any)?._last_updated)}</span>
+            </div>
+            <button
+              className="p-2 rounded-md hover:bg-muted transition-colors"
+              onClick={() => refetch()}
+              aria-label="Refresh"
+              disabled={isFetching}
+            >
+              <RefreshCw className={`h-5 w-5 ${isFetching ? "animate-spin" : ""}`} />
+            </button>
           </div>
         </div>
 
@@ -109,6 +111,16 @@ const Registrations = () => {
             ))}
           </div>
         )}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5 }}
+        className="mt-12 flex justify-center"
+      >
+        <div className="inline-block bg-muted/60 border border-border rounded-lg px-4 py-2 text-xs text-muted-foreground shadow-sm">
+          Auto-refreshes every 30 seconds
+        </div>
+      </motion.div>
       </div>
     </div>
   );
