@@ -138,7 +138,7 @@ const Faction = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8"
+          className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8"
         >
           <div className="bg-gradient-card border border-border rounded-lg p-4 text-center">
             <div className="text-2xl font-bold text-primary">{Object.keys(data.overall).length}</div>
@@ -155,12 +155,6 @@ const Faction = () => {
               {Math.max(...Object.values(data.overall))}
             </div>
             <div className="text-sm text-muted-foreground">Highest Count</div>
-          </div>
-          <div className="bg-gradient-card border border-border rounded-lg p-4 text-center">
-            <div className="text-2xl font-bold text-primary">
-              {(Object.values(data.overall).reduce((sum, count) => sum + count, 0) / Object.keys(data.overall).length).toFixed(1)}
-            </div>
-            <div className="text-sm text-muted-foreground">Average per Faction</div>
           </div>
         </motion.div>
 

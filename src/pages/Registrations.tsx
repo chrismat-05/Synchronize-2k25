@@ -99,7 +99,7 @@ const Registrations = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8"
+          className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8"
         >
           <div className="bg-gradient-card border border-border rounded-lg p-4 text-center">
             <div className="text-2xl font-bold text-primary">{totalRegistrations}</div>
@@ -108,10 +108,6 @@ const Registrations = () => {
           <div className="bg-gradient-card border border-border rounded-lg p-4 text-center">
             <div className="text-2xl font-bold text-primary">{Object.keys(data).length}</div>
             <div className="text-sm text-muted-foreground">Active Events</div>
-          </div>
-          <div className="bg-gradient-card border border-border rounded-lg p-4 text-center">
-            <div className="text-2xl font-bold text-primary">{maxRegistrations}</div>
-            <div className="text-sm text-muted-foreground">Highest Count</div>
           </div>
           <div className="bg-gradient-card border border-border rounded-lg p-4 text-center">
             <div className="text-2xl font-bold text-primary">{averageRegistrations}</div>
