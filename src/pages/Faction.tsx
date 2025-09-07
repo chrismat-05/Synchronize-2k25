@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchFactionData } from "@/lib/api";
 import FactionCard from "@/components/FactionCard";
 import { motion } from "framer-motion";
+import { RefreshCw } from "lucide-react";
 
 const Faction = () => {
   const { data, isLoading, isError, refetch } = useQuery({
@@ -29,8 +30,8 @@ const Faction = () => {
   }
 
   return (
-    <div className="min-h-screen p-6">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen p-6 flex flex-col">
+      <div className="max-w-6xl mx-auto flex-1 w-full">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -59,6 +60,17 @@ const Faction = () => {
           ))}
         </motion.div>
       </div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5 }}
+        className="mt-12 text-center"
+      >
+        <div className="inline-flex items-center space-x-2 px-4 py-2 bg-muted/50 rounded-full text-sm text-muted-foreground">
+          <RefreshCw className="h-3 w-3" />
+          <span>Data refreshes automatically every 30 seconds</span>
+        </div>
+      </motion.div>
     </div>
   );
 };
