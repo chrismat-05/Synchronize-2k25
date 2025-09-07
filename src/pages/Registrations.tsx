@@ -71,7 +71,7 @@ const Registrations = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="grid grid-cols-1 xs:grid-cols-3 gap-4 mb-8"
+          className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8"
         >
           <div className="bg-card rounded-lg p-4 flex flex-col items-center border border-border">
             <span className="text-xs text-muted-foreground mb-1">Total Registrations</span>
