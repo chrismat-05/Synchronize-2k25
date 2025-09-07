@@ -6,10 +6,11 @@ interface FactionCardProps {
   name: string;
   totalCount: number;
   perEventData?: Record<string, number>;
+  logo?: string;
   delay?: number;
 }
 
-const FactionCard = ({ name, totalCount, perEventData, delay = 0 }: FactionCardProps) => {
+const FactionCard = ({ name, totalCount, perEventData, logo, delay = 0 }: FactionCardProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
@@ -17,17 +18,24 @@ const FactionCard = ({ name, totalCount, perEventData, delay = 0 }: FactionCardP
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.3, delay }}
-  className="bg-gradient-card border border-border rounded-lg shadow-card hover:shadow-card-hover transition-all duration-300 overflow-hidden"
+      className="bg-gradient-card border border-border rounded-lg shadow-card hover:shadow-card-hover transition-all duration-300 overflow-hidden group"
     >
+      {logo && (
+        <div className="aspect-video overflow-hidden">
+          <img
+            src={logo}
+            alt={name}
+            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        </div>
+      )}
       <div
         className="p-4 sm:p-6 cursor-pointer hover:bg-card-hover transition-colors duration-200"
         onClick={() => setIsExpanded(!isExpanded)}
       >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 sm:gap-0 relative">
-          {/* Name and label: stacked on mobile, inline on sm+ */}
           <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-3">
             <h3 className="font-semibold text-foreground text-base sm:text-lg">{name}</h3>
-            {/* Only show label and icon on sm+ */}
             <div className="hidden sm:flex items-center space-x-2">
               <div className="p-2 bg-secondary rounded-md">
                 <Users className="h-5 w-5 text-secondary-foreground" />
@@ -35,9 +43,7 @@ const FactionCard = ({ name, totalCount, perEventData, delay = 0 }: FactionCardP
               <p className="text-sm text-muted-foreground">Total Registrations</p>
             </div>
           </div>
-          {/* Number: much bigger on mobile, normal on sm+ */}
           <span className="text-4xl sm:text-2xl font-bold text-primary mt-1 sm:mt-0">{totalCount}</span>
-          {/* ChevronDown icon: absolutely at right edge on mobile, inline on sm+ */}
           {perEventData && (
             <span
               className="absolute right-4 top-1/2 -translate-y-1/2 sm:static sm:translate-y-0"

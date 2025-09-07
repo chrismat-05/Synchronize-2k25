@@ -1,3 +1,44 @@
+import algoNinjasLogo from "@/assets/AlgoNinjas.png";
+import animequestLogo from "@/assets/Anime Quest.png";
+import bugReapersLogo from "@/assets/BugReapers.png";
+import byteBanditsLogo from "@/assets/ByteBandits.png";
+import chronoscapeLogo from "@/assets/Chronoscape.png";
+import codesustainLogo from "@/assets/Code Sustain.png";
+import dataRaidersLogo from "@/assets/DataRaiders.png";
+import glitchMonksLogo from "@/assets/GlitchMonks.png";
+import illustraLogo from "@/assets/Illustra.png";
+import itManagerLogo from "@/assets/IT Manager.png";
+import logicLordsLogo from "@/assets/LogicLords.png";
+import sensorizeLogo from "@/assets/Sensorize.png";
+import syntaxShinobisLogo from "@/assets/SyntaxShinobis.png";
+import techjarLogo from "@/assets/TechJar.png";
+import webweaversLogo from "@/assets/WebWeavers.png";
+function normalize(name: string) {
+  return name.toLowerCase().replace(/\s/g, "");
+}
+
+function getBaseFactionName(name: string) {
+  return name.split(' -')[0].replace(/\s/g, '');
+}
+
+const factionLogos: Record<string, string> = {
+  [normalize("AlgoNinjas")]: algoNinjasLogo,
+  [normalize("AnimeQuest")]: animequestLogo,
+  [normalize("AnimeQuiz")]: animequestLogo,
+  [normalize("BugReapers")]: bugReapersLogo,
+  [normalize("ByteBandits")]: byteBanditsLogo,
+  [normalize("Chronoscape")]: chronoscapeLogo,
+  [normalize("CodeSustain")]: codesustainLogo,
+  [normalize("DataRaiders")]: dataRaidersLogo,
+  [normalize("GlitchMonks")]: glitchMonksLogo,
+  [normalize("Illustra")]: illustraLogo,
+  [normalize("IT Manager")]: itManagerLogo,
+  [normalize("LogicLords")]: logicLordsLogo,
+  [normalize("Sensorize")]: sensorizeLogo,
+  [normalize("SyntaxShinobis")]: syntaxShinobisLogo,
+  [normalize("TechJar")]: techjarLogo,
+  [normalize("Web Weavers")]: webweaversLogo,
+};
 
 import { useQuery } from "@tanstack/react-query";
 import { fetchFactionData } from "@/lib/api";
@@ -114,6 +155,7 @@ const Faction = () => {
           </div>
         </motion.div>
 
+
         {/* Faction Cards */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -121,15 +163,21 @@ const Faction = () => {
           transition={{ delay: 0.2 }}
           className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8"
         >
-          {Object.entries(data.overall).map(([faction, count], i) => (
-            <FactionCard
-              key={faction}
-              name={getDisplayFactionName(faction)}
-              totalCount={count}
-              perEventData={data.perFaction[faction]}
-              delay={i * 0.1}
-            />
-          ))}
+          {Object.entries(data.overall).map(([faction, count], i) => {
+            const displayName = getDisplayFactionName(faction);
+            const baseName = getBaseFactionName(displayName);
+            const logo = factionLogos[normalize(baseName)] || factionLogos[normalize(displayName)] || factionLogos[normalize(faction)] || "";
+            return (
+              <FactionCard
+                key={faction}
+                name={displayName}
+                totalCount={count}
+                perEventData={data.perFaction[faction]}
+                logo={logo}
+                delay={i * 0.1}
+              />
+            );
+          })}
         </motion.div>
       </div>
       <motion.div
