@@ -20,6 +20,7 @@ const eventInfo = [
   { name: "CodeSustain", logo: codesustainLogo },
   { name: "Web Weavers", logo: webweaversLogo },
   { name: "AnimeQuest", logo: animequestLogo },
+  { name: "AnimeQuiz", logo: animequestLogo },
   { name: "TechJar", logo: techjarLogo },
   { name: "Illustra", logo: illustraLogo },
   { name: "Sensorize", logo: sensorizeLogo },
