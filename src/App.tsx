@@ -16,13 +16,27 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <div className="min-h-screen bg-gradient-bg">
+        <div className="min-h-screen bg-gradient-bg relative">
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/faction" element={<Faction />} />
             <Route path="/registrations" element={<Registrations />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
+          {/* Footer */}
+          <footer className="fixed bottom-4 right-4 z-50">
+            <div className="bg-card/80 border border-border rounded-lg px-4 py-2 text-xs text-muted-foreground shadow-md backdrop-blur">
+              Built by{' '}
+              <a
+                href="https://thecma.xyz"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary underline hover:text-primary-hover font-semibold"
+              >
+                CMA
+              </a>
+            </div>
+          </footer>
         </div>
       </BrowserRouter>
     </TooltipProvider>
