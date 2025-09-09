@@ -75,9 +75,26 @@ function Day1() {
         text += `   Selected for next round count: ${ev.selectedNextRound}\n`;
       });
     }
-    navigator.clipboard.writeText(text).then(() => {
-      toast("Copied Day 1 stats to clipboard!");
-    });
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(() => {
+        toast("Copied Day 1 stats to clipboard!");
+      });
+    } else {
+      const textarea = document.createElement("textarea");
+      textarea.value = text;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "absolute";
+      textarea.style.left = "-9999px";
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand("copy");
+        toast("Copied Day 1 stats to clipboard!");
+      } catch (err) {
+        toast("Failed to copy. Please copy manually.");
+      }
+      document.body.removeChild(textarea);
+    }
   }
 
 
