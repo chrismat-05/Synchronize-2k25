@@ -10,6 +10,7 @@ import { Instagram } from "lucide-react";
 import Faction from "./pages/Faction";
 import Registrations from "./pages/Registrations";
 import NotFound from "./pages/NotFound";
+import Home from "./pages/Home";
 
 const queryClient = new QueryClient();
 
@@ -61,6 +62,7 @@ const App = () => (
         <div className="min-h-screen bg-gradient-bg relative">
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/faction" element={<Faction />} />
             <Route path="/registrations" element={<Registrations />} />
             <Route path="/day1" element={<Day1 />} />
