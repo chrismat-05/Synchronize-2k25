@@ -1,7 +1,8 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { fetchDay1Data } from "@/lib/day1";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import { toast } from "@/components/ui/sonner";
 import { Bar } from "react-chartjs-2";
 import { Chart, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from "chart.js";
 import { Users, User2 } from "lucide-react";
@@ -24,7 +25,7 @@ function getEventTypeIcon(type) {
   return type === "Team" ? <Users className="inline h-4 w-4 text-primary" /> : <User2 className="inline h-4 w-4 text-primary" />;
 }
 
-export default function Day1() {
+function Day1() {
   const { data, refetch, isFetching } = useQuery({
     queryKey: ["day1Data"],
     queryFn: fetchDay1Data,
@@ -54,6 +55,30 @@ export default function Day1() {
 
   const round1 = events.filter(e => e.round === 1);
   const round2 = events.filter(e => e.round === 2);
+
+  // Copy to clipboard handler
+  function handleCopy() {
+    let text = "Synchronize 2025\nDay 1 (09th Sept 2025)\n";
+    text += "\nRound 1\n";
+    round1.forEach(ev => {
+      text += `\n${ev.eventName.replace(/-I$/, "")}\n`;
+      text += `   Registered count: ${ev.registered}\n`;
+      text += `   Participated count: ${ev.participated}\n`;
+      text += `   Selected for next round count: ${ev.selectedNextRound}\n`;
+    });
+    if (round2.length > 0) {
+      text += "\nRound 2\n";
+      round2.forEach(ev => {
+        text += `\n${ev.eventName.replace(/-II$/, "")}\n`;
+        text += `   Registered count: ${ev.registered}\n`;
+        text += `   Participated count: ${ev.participated}\n`;
+        text += `   Selected for next round count: ${ev.selectedNextRound}\n`;
+      });
+    }
+    navigator.clipboard.writeText(text).then(() => {
+      toast("Copied Day 1 stats to clipboard!");
+    });
+  }
 
 
   // Horizontal Bar chart for overall
@@ -86,6 +111,14 @@ export default function Day1() {
 
   return (
     <div className="min-h-screen px-2 sm:px-6 py-8 flex flex-col items-center bg-gradient-bg">
+      <div className="w-full max-w-7xl flex justify-end mb-4">
+        <button
+          onClick={handleCopy}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground font-semibold shadow hover:bg-primary-hover transition-all border border-border"
+        >
+          Copy to Clipboard
+        </button>
+      </div>
       <h1 className="text-3xl font-bold mb-10 text-primary tracking-tight w-full text-left max-w-7xl mx-auto">Day 1 Progress</h1>
       {/* Overall Card */}
       <div className="w-full max-w-6xl mx-auto mb-12">
@@ -227,3 +260,5 @@ export default function Day1() {
     </div>
   );
 }
+
+export default Day1;
