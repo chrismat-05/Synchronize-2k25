@@ -146,6 +146,10 @@ function Day3() {
                 <span className="text-orange-400 font-bold text-3xl">{overall.selectedNextRound}</span>
                 <span className="text-sm text-muted-foreground">Selected (Next Round)</span>
               </div>
+              <div className="flex flex-col items-center flex-1 bg-muted/30 rounded-lg p-6">
+                <span className="text-pink-400 font-bold text-3xl">{overall.selectedWinners}</span>
+                <span className="text-sm text-muted-foreground">Selected (Winners)</span>
+              </div>
             </div>
           </div>
         </div>
