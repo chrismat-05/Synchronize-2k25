@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { BarChart3, Users } from 'lucide-react';
+import { BarChart3, Users, ArrowLeft } from 'lucide-react';
 import EventCard from '@/components/EventCard';
 
 import logo from '@/assets/Logo.png';
@@ -76,16 +76,12 @@ const Index = () => {
     <div className="min-h-screen py-12 px-6">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12"
-        >
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Synchronize 2025
-          </h1>
-        
-        </motion.div>
+        <div className="flex items-center gap-2 mb-6">
+          <Link to="/">
+            <ArrowLeft className="h-5 w-5 text-muted-foreground" />
+          </Link>
+          <h1 className="text-2xl font-bold tracking-tight flex-1">Synchronize 2025</h1>
+        </div>
 
         {/* Brochure - First Line */}
         <motion.div

@@ -4,7 +4,8 @@ import { useMemo } from "react";
 import { toast } from "@/components/ui/sonner";
 import { Bar } from "react-chartjs-2";
 import { Chart, BarElement, CategoryScale, LinearScale, Tooltip, Legend } from "chart.js";
-import { Users, User2 } from "lucide-react";
+import { Users, User2, ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
 
 Chart.register(BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -140,16 +141,20 @@ function Day2() {
   };
 
   return (
-    <div className="min-h-screen px-2 sm:px-6 py-8 flex flex-col items-center bg-gradient-bg">
-      <div className="w-full max-w-7xl flex justify-end mb-4">
-        <button
-          onClick={handleCopy}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground font-semibold shadow hover:bg-primary-hover transition-all border border-border"
-        >
-          Copy to Clipboard
-        </button>
-      </div>
-      <h1 className="text-3xl font-bold mb-10 text-primary tracking-tight w-full text-left max-w-7xl mx-auto">Day 2 Progress</h1>
+    <div className="min-h-screen px-2 sm:px-6 py-8 flex flex-col">
+      <div className="max-w-6xl mx-auto flex-1 w-full">
+        <div className="flex items-center gap-2 mb-6">
+          <Link to="/">
+            <ArrowLeft className="h-5 w-5 text-muted-foreground" />
+          </Link>
+          <h1 className="text-2xl font-bold tracking-tight flex-1">Day 2 Progress</h1>
+          <button
+            onClick={handleCopy}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground font-semibold shadow hover:bg-primary-hover transition-all border border-border ml-auto"
+          >
+            Copy to Clipboard
+          </button>
+        </div>
       <div className="w-full max-w-6xl mx-auto mb-12">
         <div className="bg-card rounded-2xl shadow-card border border-border flex flex-col lg:flex-row items-center lg:items-stretch p-8 gap-8 lg:gap-16">
           <div className="flex-[1.2] flex items-center justify-center min-w-[320px]">
@@ -341,6 +346,7 @@ function Day2() {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 }
