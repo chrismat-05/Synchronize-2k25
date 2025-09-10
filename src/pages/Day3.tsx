@@ -35,7 +35,9 @@ function Day3() {
     if (!data?.Day3?.Round2) return [];
     return Object.entries(data.Day3.Round2).map(([eventName, eventObj]) => {
       const { type = "Team", registered = 0, participated = 0, selectedNextRound = 0 } = eventObj as Day3EventEntry;
-      return { eventName, type, registered, participated, selectedNextRound };
+      // Mark as winner for CodeSustain and Web Weavers
+      const isWinner = /codesustain|webweavers/i.test(eventName);
+      return { eventName, type, registered, participated, selectedNextRound, isWinner };
     });
   }, [data]);
 
@@ -43,7 +45,8 @@ function Day3() {
     return {
       registered: sumBy(events, "registered"),
       participated: sumBy(events, "participated"),
-      selectedNextRound: sumBy(events, "selectedNextRound"),
+      selectedNextRound: sumBy(events.filter(e => !e.isWinner), "selectedNextRound"),
+      selectedWinners: sumBy(events.filter(e => e.isWinner), "selectedNextRound"),
     };
   }, [events]);
 
@@ -53,7 +56,11 @@ function Day3() {
       text += `\n${ev.eventName.replace(/-II$/, "")}\n`;
       text += `   Registered count: ${ev.registered}\n`;
       text += `   Participated count: ${ev.participated}\n`;
-      text += `   Selected for next round count: ${ev.selectedNextRound}\n`;
+      if (ev.isWinner) {
+        text += `   Selected Winners count: ${ev.selectedNextRound}\n`;
+      } else {
+        text += `   Selected for next round count: ${ev.selectedNextRound}\n`;
+      }
     });
     if (navigator.clipboard && window.isSecureContext) {
       navigator.clipboard.writeText(text).then(() => {
@@ -78,12 +85,12 @@ function Day3() {
   }
 
   const overallBarData = {
-    labels: ["Registered", "Participated", "Selected (Next Round)"],
+    labels: ["Registered", "Participated", "Selected (Next Round)", "Selected (Winners)"],
     datasets: [
       {
         label: "Overall",
-        data: [overall.registered, overall.participated, overall.selectedNextRound],
-        backgroundColor: COLORS,
+        data: [overall.registered, overall.participated, overall.selectedNextRound, overall.selectedWinners],
+        backgroundColor: [COLORS[0], COLORS[1], COLORS[2], COLORS[3]],
         borderRadius: 8,
         barThickness: 32,
       },
@@ -148,13 +155,16 @@ function Day3() {
         <h2 className="font-semibold text-2xl mb-6 text-primary text-left">Round 2</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {events.map(ev => {
+            const isWinner = ev.isWinner;
             const barData = {
-              labels: ["Registered", "Participated", "Selected (Next Round)"],
+              labels: isWinner
+                ? ["Registered", "Participated", "Selected (Winners)"]
+                : ["Registered", "Participated", "Selected (Next Round)"],
               datasets: [
                 {
                   label: ev.eventName.replace(/-II$/, ""),
                   data: [ev.registered, ev.participated, ev.selectedNextRound],
-                  backgroundColor: COLORS.slice(0, 3),
+                  backgroundColor: isWinner ? [COLORS[0], COLORS[1], COLORS[3]] : COLORS.slice(0, 3),
                   borderRadius: 6,
                   barThickness: 28,
                 },
@@ -188,8 +198,8 @@ function Day3() {
                     <span className="text-xs text-muted-foreground">Participated</span>
                   </div>
                   <div className="flex flex-col items-center flex-1 bg-muted/30 rounded-lg p-4">
-                    <span className="text-orange-400 font-bold text-lg">{typeof ev.selectedNextRound === "number" ? ev.selectedNextRound : 0}</span>
-                    <span className="text-xs text-muted-foreground">Selected (Next Round)</span>
+                    <span className={isWinner ? "text-pink-400 font-bold text-lg" : "text-orange-400 font-bold text-lg"}>{typeof ev.selectedNextRound === "number" ? ev.selectedNextRound : 0}</span>
+                    <span className="text-xs text-muted-foreground">{isWinner ? "Selected (Winners)" : "Selected (Next Round)"}</span>
                   </div>
                 </div>
               </div>
