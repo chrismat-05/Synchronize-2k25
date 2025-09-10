@@ -131,7 +131,7 @@ function Day1() {
     <div className="min-h-screen px-2 sm:px-6 py-8 flex flex-col">
       <div className="max-w-6xl mx-auto flex-1 w-full">
         <div className="flex items-center gap-2 mb-6">
-          <Link to="/">
+          <Link to="/home">
             <ArrowLeft className="h-5 w-5 text-muted-foreground" />
           </Link>
           <h1 className="text-2xl font-bold tracking-tight flex-1">Day 1 Progress</h1>
