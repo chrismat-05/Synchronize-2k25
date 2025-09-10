@@ -78,7 +78,7 @@ function day4() {
   }
 
   const overallBarData = {
-    labels: ["Registered", "Participated", "Selected (Next Round)"],
+    labels: ["Registered", "Participated", "Selected (Finals)"],
     datasets: [
       {
         label: "Overall",
