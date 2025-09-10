@@ -60,7 +60,6 @@ function Day1() {
   // Copy to clipboard handler
   function handleCopy() {
     let text = "Synchronize 2025\nDay 1 (09th Sept 2025)\n";
-    text += "\nRound 1\n";
     round1.forEach(ev => {
       text += `\n${ev.eventName.replace(/-I$/, "")}\n`;
       text += `   Registered count: ${ev.registered}\n`;

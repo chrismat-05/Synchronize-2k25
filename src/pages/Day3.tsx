@@ -49,7 +49,6 @@ function Day3() {
 
   function handleCopy() {
     let text = "Synchronize 2025\nDay 3 (10th Sept 2025)\n";
-    text += "\nRound 2\n";
     events.forEach(ev => {
       text += `\n${ev.eventName.replace(/-II$/, "")}\n`;
       text += `   Registered count: ${ev.registered}\n`;

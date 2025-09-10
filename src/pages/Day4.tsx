@@ -48,8 +48,7 @@ function day4() {
   }, [events]);
 
   function handleCopy() {
-    let text = "Synchronize 2025\nDay 3 (10th Sept 2025)\n";
-    text += "\nRound 2\n";
+    let text = "Synchronize 2025\nDay 4 (11th Sept 2025)\n";
     events.forEach(ev => {
       text += `\n${ev.eventName.replace(/-II$/, "")}\n`;
       text += `   Registered count: ${ev.registered}\n`;
@@ -58,7 +57,7 @@ function day4() {
     });
     if (navigator.clipboard && window.isSecureContext) {
       navigator.clipboard.writeText(text).then(() => {
-        toast("Copied Day 3 stats to clipboard!");
+        toast("Copied Day 4 stats to clipboard!");
       });
     } else {
       const textarea = document.createElement("textarea");
