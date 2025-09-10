@@ -30,20 +30,45 @@ function day4() {
     staleTime: 0,
   });
 
-  // Only Round 2 events
+  // Only Round 3 events
   const events = useMemo(() => {
     if (!data?.Day4?.Round3) return [];
     return Object.entries(data.Day4.Round3).map(([eventName, eventObj]) => {
       const { type = "Team", registered = 0, participated = 0, selectedNextRound = 0 } = eventObj as Day4EventEntry;
-      return { eventName, type, registered, participated, selectedNextRound };
+      // For IT Manager - III, show Selected Next Round, for others show Selected Finals
+      const isITManagerIII = eventName === "IT Manager - III";
+      return {
+        eventName,
+        type,
+        registered,
+        participated,
+        selectedNextRound,
+        selectedFinals: isITManagerIII ? null : selectedNextRound,
+        isITManagerIII,
+      };
     });
   }, [data]);
 
+  // Overall stats: show Selected Next Round for IT Manager - III, Selected Finals for others
   const overall = useMemo(() => {
+    let selectedNextRound = 0;
+    let selectedFinals = 0;
+    let registered = 0;
+    let participated = 0;
+    events.forEach(ev => {
+      registered += typeof ev.registered === "number" ? ev.registered : 0;
+      participated += typeof ev.participated === "number" ? ev.participated : 0;
+      if (ev.isITManagerIII) {
+        selectedNextRound += typeof ev.selectedNextRound === "number" ? ev.selectedNextRound : 0;
+      } else {
+        selectedFinals += typeof ev.selectedFinals === "number" ? ev.selectedFinals : 0;
+      }
+    });
     return {
-      registered: sumBy(events, "registered"),
-      participated: sumBy(events, "participated"),
-      selectedNextRound: sumBy(events, "selectedNextRound"),
+      registered,
+      participated,
+      selectedNextRound,
+      selectedFinals,
     };
   }, [events]);
 
@@ -78,11 +103,11 @@ function day4() {
   }
 
   const overallBarData = {
-    labels: ["Registered", "Participated", "Selected (Finals)"],
+    labels: ["Registered", "Participated", "Selected (Next Round)", "Selected (Finals)"],
     datasets: [
       {
         label: "Overall",
-        data: [overall.registered, overall.participated, overall.selectedNextRound],
+        data: [overall.registered, overall.participated, overall.selectedNextRound, overall.selectedFinals],
         backgroundColor: COLORS,
         borderRadius: 8,
         barThickness: 32,
@@ -139,20 +164,100 @@ function day4() {
                 <span className="text-orange-400 font-bold text-3xl">{overall.selectedNextRound}</span>
                 <span className="text-sm text-muted-foreground">Selected (Next Round)</span>
               </div>
+              <div className="flex flex-col items-center flex-1 bg-muted/30 rounded-lg p-6">
+                <span className="text-pink-400 font-bold text-3xl">{overall.selectedFinals}</span>
+                <span className="text-sm text-muted-foreground">Selected (Finals)</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      {/* Round 2 */}
+      {/* Round 3 */}
       <div className="w-full max-w-7xl mx-auto mb-12">
         <h2 className="font-semibold text-2xl mb-6 text-primary text-left">Round 3</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {events.map(ev => {
+          {events.filter(ev => !ev.eventName.endsWith("- IV")).map(ev => {
+            // For IT Manager - III, show Selected Next Round, for others show Selected Finals
+            const barData = ev.isITManagerIII
+              ? {
+                  labels: ["Registered", "Participated", "Selected (Next Round)"],
+                  datasets: [
+                    {
+                      label: ev.eventName.replace(/-II$/, ""),
+                      data: [ev.registered, ev.participated, ev.selectedNextRound],
+                      backgroundColor: COLORS.slice(0, 3),
+                      borderRadius: 6,
+                      barThickness: 28,
+                    },
+                  ],
+                }
+              : {
+                  labels: ["Registered", "Participated", "Selected (Finals)"],
+                  datasets: [
+                    {
+                      label: ev.eventName.replace(/-II$/, ""),
+                      data: [ev.registered, ev.participated, ev.selectedFinals],
+                      backgroundColor: [COLORS[0], COLORS[1], COLORS[3]], // Use COLORS[3] for finals
+                      borderRadius: 6,
+                      barThickness: 28,
+                    },
+                  ],
+                };
+            const barOptions = {
+              indexAxis: 'y' as const,
+              plugins: { legend: { display: false } },
+              responsive: true,
+              scales: {
+                x: { beginAtZero: true, grid: { display: false }, ticks: { color: '#fff' } },
+                y: { grid: { display: false }, ticks: { color: '#fff' } },
+              },
+            };
+            return (
+              <div key={ev.eventName} className="bg-card rounded-2xl shadow-card border border-border p-8 flex flex-col items-center">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="font-semibold text-lg text-primary">{ev.eventName.replace(/-II$/, "")}</span>
+                  {getEventTypeIcon(ev.type)}
+                </div>
+                <div className="w-full h-40 flex items-center justify-center mb-4">
+                  <Bar data={barData} options={barOptions} className="w-full h-40" />
+                </div>
+                <div className="flex justify-center gap-6 mt-2 w-full">
+                  <div className="flex flex-col items-center flex-1 bg-muted/30 rounded-lg p-4">
+                    <span className="text-primary font-bold text-lg">{typeof ev.registered === "number" ? ev.registered : 0}</span>
+                    <span className="text-xs text-muted-foreground">Registered</span>
+                  </div>
+                  <div className="flex flex-col items-center flex-1 bg-muted/30 rounded-lg p-4">
+                    <span className="text-cyan-400 font-bold text-lg">{typeof ev.participated === "number" ? ev.participated : 0}</span>
+                    <span className="text-xs text-muted-foreground">Participated</span>
+                  </div>
+                  {ev.isITManagerIII ? (
+                    <div className="flex flex-col items-center flex-1 bg-muted/30 rounded-lg p-4">
+                      <span className="text-orange-400 font-bold text-lg">{typeof ev.selectedNextRound === "number" ? ev.selectedNextRound : 0}</span>
+                      <span className="text-xs text-muted-foreground">Selected (Next Round)</span>
+                    </div>
+                  ) : (
+                    <div className="flex flex-col items-center flex-1 bg-muted/30 rounded-lg p-4">
+                      <span className="text-fuchsia-500 font-bold text-lg">{typeof ev.selectedFinals === "number" ? ev.selectedFinals : 0}</span>
+                      <span className="text-xs text-muted-foreground">Selected (Finals)</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Round 4 */}
+      <div className="w-full max-w-7xl mx-auto mb-12">
+        <h2 className="font-semibold text-2xl mb-6 text-primary text-left">Round 4</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {events.filter(ev => ev.eventName.endsWith("- IV")).map(ev => {
             const barData = {
               labels: ["Registered", "Participated", "Selected (Next Round)"],
               datasets: [
                 {
-                  label: ev.eventName.replace(/-II$/, ""),
+                  label: ev.eventName.replace(/-IV$/, ""),
                   data: [ev.registered, ev.participated, ev.selectedNextRound],
                   backgroundColor: COLORS.slice(0, 3),
                   borderRadius: 6,
@@ -172,7 +277,7 @@ function day4() {
             return (
               <div key={ev.eventName} className="bg-card rounded-2xl shadow-card border border-border p-8 flex flex-col items-center">
                 <div className="flex items-center gap-2 mb-3">
-                  <span className="font-semibold text-lg text-primary">{ev.eventName.replace(/-II$/, "")}</span>
+                  <span className="font-semibold text-lg text-primary">{ev.eventName.replace(/-IV$/, "")}</span>
                   {getEventTypeIcon(ev.type)}
                 </div>
                 <div className="w-full h-40 flex items-center justify-center mb-4">
