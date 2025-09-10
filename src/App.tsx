@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Day1 from "./pages/Day1";
+import Day2 from "./pages/Day2";
 import { useLocation } from "react-router-dom";
 import { Instagram } from "lucide-react";
 import Faction from "./pages/Faction";
@@ -66,6 +67,7 @@ const App = () => (
             <Route path="/faction" element={<Faction />} />
             <Route path="/registrations" element={<Registrations />} />
             <Route path="/day1" element={<Day1 />} />
+            <Route path="/day2" element={<Day2 />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />
