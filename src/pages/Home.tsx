@@ -15,12 +15,12 @@ const Home = () => {
         </div>
         <h1 className="text-3xl font-bold mb-8 text-foreground">Synchronize 2025</h1>
         <div className="flex flex-col gap-4 w-full">
-          <Link to="/registrations" className="px-6 py-3 rounded-lg bg-secondary text-secondary-foreground font-medium shadow hover:bg-secondary/90 transition text-center">Registrations</Link>
-          <Link to="/faction" className="px-6 py-3 rounded-lg bg-secondary text-secondary-foreground font-medium shadow hover:bg-secondary/90 transition text-center">Faction</Link>
-          <Link to="/day1" className="px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold shadow hover:bg-primary/90 transition text-center">Day 1</Link>
-          <Link to="/day2" className="px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold shadow hover:bg-primary/90 transition text-center">Day 2</Link>
-          <Link to="/day3" className="px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold shadow hover:bg-primary/90 transition text-center">Day 3</Link>
-          <Link to="/day4" className="px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold shadow hover:bg-primary/90 transition text-center">Day 4</Link>
+          <Link to="/registrations" className="px-6 py-3 rounded-lg bg-secondary text-secondary-foreground font-medium shadow hover:bg-secondary/40 transition text-center">Registrations</Link>
+          <Link to="/faction" className="px-6 py-3 rounded-lg bg-secondary text-secondary-foreground font-medium shadow hover:bg-secondary/40 transition text-center">Faction</Link>
+          <Link to="/day1" className="px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold shadow hover:bg-primary/60 transition text-center">Day 1</Link>
+          <Link to="/day2" className="px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold shadow hover:bg-primary/60 transition text-center">Day 2</Link>
+          <Link to="/day3" className="px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold shadow hover:bg-primary/60 transition text-center">Day 3</Link>
+          <Link to="/day4" className="px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold shadow hover:bg-primary/60 transition text-center">Day 4</Link>
         </div>
       </div>
     </div>
