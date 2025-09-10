@@ -13,6 +13,8 @@ import illustraLogo from '@/assets/Illustra.png';
 import sensorizeLogo from '@/assets/Sensorize.png';
 import chronoscapeLogo from '@/assets/Chronoscape.png';
 
+import React from "react";
+
 const brochureEvent = {
   title: 'Synchronize 2025 Brochure',
   logo: logo,
@@ -112,6 +114,7 @@ const Index = () => {
               buttonText={event.buttonText}
               link={event.link}
               delay={0.1 * index}
+              disabled
             />
           ))}
         </motion.div>
