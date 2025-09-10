@@ -19,6 +19,7 @@ const Home = () => {
           <Link to="/faction" className="px-6 py-3 rounded-lg bg-secondary text-secondary-foreground font-medium shadow hover:bg-secondary/90 transition text-center">Faction</Link>
           <Link to="/day1" className="px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold shadow hover:bg-primary/90 transition text-center">Day 1</Link>
           <Link to="/day2" className="px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold shadow hover:bg-primary/90 transition text-center">Day 2</Link>
+          <Link to="/day3" className="px-6 py-3 rounded-lg bg-primary text-primary-foreground font-semibold shadow hover:bg-primary/90 transition text-center">Day 3</Link>
         </div>
       </div>
     </div>
